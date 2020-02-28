@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/02/26 14:39:18 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/02/28 10:38:32 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,27 @@ typedef struct		s_vector
 	float	dir_y;
 }					t_vector;
 
+typedef struct		s_texture
+{
+	int		*img;
+	int		size;
+	int		width;
+	int		height;
+}					t_text;
+
 typedef struct		s_map
 {
 	int		res_x;
 	int		res_y;
 	float	screen_d;
 	char	**map;
-	char	*north;
-	char	*south;
-	char	*east;
-	char	*west;
+	t_text	north;
+	t_text	south;
+	t_text	east;
+	t_text	west;
 	int		floor;
 	int		ceil;
-	char	*sprite;
+	t_text	sprite;
 	float	pos_x;
 	float	pos_y;
 	float	angle;
@@ -71,10 +79,30 @@ typedef struct		s_distance
 	int		side_hit;
 }					t_distance;
 
-int			parsing(t_map *map, int fd);
-int			parse_map(t_map *map, char *line);
-int			render(t_map *map, t_mlx *mlx);
-t_mlx		init_mlx(t_map *map);
-void		mlx_end(t_mlx *mlx);
+typedef enum		e_key
+{
+	W = 1,
+	A = 2,
+	S = 4,
+	D = 8,
+	RIGHT = 16,
+	LEFT = 32,
+}					t_key;
+
+typedef struct		s_param
+{
+	t_map	*map;
+	t_mlx	*mlx;
+	t_key	key;
+}					t_param;
+
+int					parsing(t_map *map, t_mlx *mlx, int fd);
+int					parse_map(t_map *map, char *line);
+int					render(t_map *map, t_mlx *mlx);
+t_mlx				init_mlx(t_map *map);
+void				mlx_end(t_mlx *mlx);
+void				move_straight(t_key key, t_map *map);
+void				move_side(t_key key, t_map *map);
+void				rotate(t_key key, t_map *map);
 
 #endif

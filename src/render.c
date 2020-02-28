@@ -6,15 +6,13 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:33:00 by gdinet            #+#    #+#             */
-/*   Updated: 2020/02/26 14:39:16 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/02/28 12:35:07 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "cub3d.h"
 #include "mlx.h"
-
-#include <stdio.h>
 
 t_distance		init_dist(t_vector *ray)
 {
@@ -42,6 +40,8 @@ t_distance		init_dist(t_vector *ray)
 		dist.step_y = 1;
 		dist.side_y = (ceil(ray->pos_y) - ray->pos_y) * dist.delta_y;
 	}
+//	dist.side_x -= dist.delta_x;
+//	dist.side_y -= dist.delta_y;
 	return (dist);
 }
 
@@ -77,6 +77,7 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 			color = NORTH_COLOR;
 	}
 	high = (WALL_H / distance) * map->screen_d;
+	//get_color
 	line = 0;
 	while (line < map->res_y)
 	{
@@ -113,7 +114,7 @@ void			dda(t_vector *ray, t_map *map, t_mlx *mlx, int col, float angle)
 		{
 			dist.side_y += dist.delta_y;
 			y += dist.step_y;
-			dist.side_hit= 1;
+			dist.side_hit = 1;
 		}
 		hit = (map->map[y][x] != '0');
 	}

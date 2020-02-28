@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/02/26 13:13:56 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/02/28 12:45:33 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,63 @@
 #include <math.h>
 #include <stdlib.h>
 
-int		key_hook(int keycode, void *param)
+int		key_press(int keycode, t_param *param)
 {
-	(void)param;
+	if (keycode == KEY_W)
+		param->key |= W;
+	if (keycode == KEY_A)
+		param->key |= A;
+	if (keycode == KEY_S)
+		param->key |= S;
+	if (keycode == KEY_D)
+		param->key |= D;
+	if (keycode == KEY_RIGHT)
+		param->key |= RIGHT;
+	if (keycode == KEY_LEFT)
+		param->key |= LEFT;
 	if (keycode == KEY_ESC)
 		exit(0);
 	return (0);
 }
 
-int main(int ac, char **av)
+int		key_release(int keycode, t_param *param)
 {
-	t_map	map;
-	t_mlx	mlx;
-	int		fd;
-	void	*param = NULL;
+	if (keycode == KEY_W)
+		param->key &= ~W;
+	if (keycode == KEY_A)
+		param->key &= ~A;
+	if (keycode == KEY_S)
+		param->key &= ~S;
+	if (keycode == KEY_D)
+		param->key &= ~D;
+	if (keycode == KEY_RIGHT)
+		param->key &= ~RIGHT;
+	if (keycode == KEY_LEFT)
+		param->key &= ~LEFT;
+	return (0);
+}
+
+int		loop_hook(t_param *param)
+{
+	move_straight(param->key, param->map);
+	move_side(param->key, param->map);
+	rotate(param->key, param->map);
+	render(param->map, param->mlx);
+	return (0);
+}
+
+int		close_window(t_param *param)
+{
+	(void)param;
+	exit(0);
+}
+
+int		main(int ac, char **av)
+{
+	t_map		map;
+	t_mlx		mlx;
+	int			fd;
+	t_param		param;
 
 	if (ac == 1)
 	{
@@ -40,12 +83,15 @@ int main(int ac, char **av)
 		return (0);
 	}
 	fd = open(av[1], O_RDONLY);
-	parsing(&map, fd);
-	close (fd);
-	mlx = init_mlx(&map);
-	render(&map, &mlx);
-	mlx_key_hook(mlx.win, &key_hook, param);
-	//mlx_loop_hook(mlx.mlx_ptr, &render, param);
+	parsing(&map, &mlx, fd);
+	close(fd);
+	param.map = &map;
+	param.mlx = &mlx;
+	param.key = 0;
+	mlx_hook(mlx.win, 2, 0, &key_press, &param);
+	mlx_hook(mlx.win, 3, 0, &key_release, &param);
+	mlx_hook(mlx.win, 17, 0, &close_window, &param);
+	mlx_loop_hook(mlx.mlx_ptr, &loop_hook, &param);
 	mlx_loop(mlx.mlx_ptr);
-	return 0;
+	return (0);
 }
