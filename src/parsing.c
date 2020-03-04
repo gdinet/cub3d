@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 08:15:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/02/28 10:54:48 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/03/04 15:19:39 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,18 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int		parse_res(t_map *map, char *line, t_mlx *mlx)
+void	error_msg(char *str)			//a bouger
 {
+	printf("%s", str);
+	exit(0);
+}
+
+void	parse_res(t_map *map, char *line, t_mlx *mlx)
+{
+	if (map->res_x != 0 || map->res_y != 0)
+		error_msg("error\n");			//msg
 	if (*line != ' ')
-		return (0);			//error msg
+		error_msg("error\n");			//error msg
 	while (*line == ' ')
 		line++;
 	map->res_x = ft_atoi(line);
@@ -30,38 +38,40 @@ int		parse_res(t_map *map, char *line, t_mlx *mlx)
 		line++;
 	map->res_y = ft_atoi(line);
 	if (map->res_x <= 0 || map->res_y <= 0)
-		return (0);			//error msg
+		error_msg("error\n");			//error msg
 	if (map->res_x > RES_X_MAX)
 		map->res_x = RES_X_MAX;
 	if (map->res_y > RES_Y_MAX)
 		map->res_y = RES_Y_MAX;
-	*mlx = init_mlx(map);
-	return (1);
+	init_win(map, mlx);
 }
 
-int		parse_texture(t_text *text, char *line, t_mlx *mlx)
+void	parse_texture(t_text *text, char *line, t_mlx *mlx)
 {
 	void	*img_ptr;
 	int		bpp;
 	int		endian;
 
+	if (text->img != NULL)
+		error_msg("error");				//error msg
 	if (*line != ' ')
-		exit(0);			//error msg
+		error_msg("error\n");			//error msg
 	while (*line == ' ')
 		line++;
 	img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, line, &text->width, &text->height);	//NULL si ' ' a la fin
 	text->img = (int *)mlx_get_data_addr(img_ptr, &bpp, &text->size, &endian);			//verif si non NULL
-	return (1);
 }
 
-int		parse_color(int *color, char *line)
+void	parse_color(int *color, char *line)
 {
 	int r;
 	int g;
 	int b;
 
+	if (*color != -1)
+		error_msg("error");				//msg
 	if (*line != ' ')
-		return (0);			//error msg
+		error_msg("error\n");			//error msg
 	while (*line == ' ')
 		line++;
 	r = ft_atoi(line);
@@ -72,53 +82,55 @@ int		parse_color(int *color, char *line)
 		line++;
 	b = ft_atoi(++line);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		return (0);			//error msg
+		error_msg("error\n");			//error msg
 	*color = (r << 16) + (g << 8) + b;
-	return (1);
 }
 
-int		parse_data(t_map *map, char *line, t_mlx *mlx)
+void	parse_data(t_map *map, char *line, t_mlx *mlx)
 {
-	int		ret;
-
-	ret = 0;
 	if (*line == 'R')
-		ret = parse_res(map, line + 1, mlx);
+		parse_res(map, line + 1, mlx);
 	else if (ft_strncmp(line, "NO", 2) == 0)
-		ret = parse_texture(&map->north, line + 2, mlx);
+		parse_texture(&map->north, line + 2, mlx);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		ret = parse_texture(&map->south, line + 2, mlx);
+		parse_texture(&map->south, line + 2, mlx);
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		ret = parse_texture(&map->east, line + 2, mlx);
+		parse_texture(&map->east, line + 2, mlx);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		ret = parse_texture(&map->west, line + 2, mlx);
+		parse_texture(&map->west, line + 2, mlx);
 	else if (*line == 'F')
-		ret = parse_color(&map->floor, line + 1);
+		parse_color(&map->floor, line + 1);
 	else if (*line == 'C')
-		ret = parse_color(&map->ceil, line + 1);
+		parse_color(&map->ceil, line + 1);
 	else if (*line == 'S')
-		ret = parse_texture(&map->sprite, line + 1, mlx);
+		parse_texture(&map->sprite, line + 1, mlx);
 	else
-		return (0);		//error msg
-	return (ret);
+		error_msg("error\n");		//error msg
 }
 
-int		parsing(t_map *map, t_mlx *mlx, int fd)
+void	parsing(t_map *map, t_mlx *mlx, int fd)
 {
 	char	*line;
+	int		in_map;
 
+	in_map = 0;
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (*line == '1')
-			parse_map(map, line);
-		else if (*line)
+		if (*line)
 		{
-			if (!parse_data(map, line, mlx))
-				return (0);
+			if (!in_map && is_map(line))
+			{
+				check_data(map);
+				in_map = 1;
+			}
+			if (in_map)
+				parse_map(map, line);
+			else
+				parse_data(map, line, mlx);
 		}
 		free(line);
 	}
-	parse_map(map, "");
+	parse_map(map, NULL);
+	check_map(map->map);
 	map->screen_d = (map->res_x / 2) / tan((float)FOV * M_PI / 360);
-	return (1);
 }

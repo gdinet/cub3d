@@ -6,7 +6,7 @@
 #    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/21 15:11:17 by gdinet            #+#    #+#              #
-#    Updated: 2020/02/27 09:49:32 by gdinet           ###   ########.fr        #
+#    Updated: 2020/03/04 14:08:56 by gdinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,11 @@ CFLAG		= -Wall -Wextra -Werror -I ./inc
 
 SRC			= src/map_parsing.c \
 			  src/parsing.c \
+			  src/check.c \
 			  src/render.c \
-			  src/init_mlx.c \
+			  src/init.c \
 			  src/events.c \
+			  src/texture.c \
 			  src/main.c
 
 OBJ			= $(SRC:%.c=%.o)

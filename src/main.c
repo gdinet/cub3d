@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/02/28 12:45:33 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/03/04 15:05:00 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int		main(int ac, char **av)
 		printf("map svp\n");
 		return (0);
 	}
+	map = init_map();
+	mlx = init_mlx();
 	fd = open(av[1], O_RDONLY);
 	parsing(&map, &mlx, fd);
 	close(fd);

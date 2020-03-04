@@ -6,17 +6,39 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 10:56:11 by gdinet            #+#    #+#             */
-/*   Updated: 2020/02/28 12:39:41 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/03/03 15:28:29 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
+#include <stdio.h>
 
-unsigned int	get_color(float dist, float angle, float high, t_map *map)
+float	wall_hit(t_distance *dist, t_vector *ray, float distance)
 {
-	int		hit_x;
-	float	step;
+	float	pos;
 
-	hit_x = (int)floor(dist * sin(angle * M_PI / 180));
-	step = map->north.height / high;
+	if (dist->side_hit == 0)
+		pos = ray->pos_y + distance * ray->dir_y;
+	else
+		pos = ray->pos_x + distance * ray->dir_x;
+	return (pos - floor(pos));
+}
+
+int		get_color(t_text *text, int line, int wall_h, t_map *map, float hit)
+{
+	int		coord_x;
+	int		coord_y;
+	int		color;
+	float	pos_y;
+
+	coord_x = (int)(hit * text->width);
+	pos_y = (text->height / 2) * (map->res_y / 2 - line) / (wall_h / 2);
+	if (line > map->res_y / 2)
+		pos_y = -pos_y + text->height / 2;
+	else
+		pos_y = text->height / 2 - pos_y;
+	coord_y = (int)pos_y;
+	color = text->img[(text->size * coord_y / 4) + coord_x];
+	return (color);
 }
