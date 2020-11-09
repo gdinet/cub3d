@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 08:15:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 11:54:54 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/09 14:58:15 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,10 @@ void	parsing(t_map *map, t_mlx *mlx, int fd)
 {
 	char	*line;
 	int		in_map;
-	int i=1;
 
 	in_map = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		printf("%d : %s\n",i++, line);
 		if (*line)
 		{
 			if (!in_map && is_map(line))

@@ -1,8 +1,8 @@
 R 1000 800
 NO ./maps/texture/bluestone.xpm
 SO ./maps/texture/bluestone.xpm
-EA ./maps/texture/purplestone.xpm
-WE ./maps/texture/greystone.xpm
+EA ./maps/texture/bluestone.xpm
+WE ./maps/texture/bluestone.xpm
 
 S ./maps/texture/barrel.xpm
 F 220,100,0

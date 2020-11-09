@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:26:10 by gdinet            #+#    #+#             */
-/*   Updated: 2020/03/04 15:04:46 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/09 15:19:44 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	add_to_list(char *line, t_list **map_list)
 	char	*str;
 
 	if (!is_map(line))
-		error_msg("error");					//msg
+		error_msg("error10\n");					//msg
 	if (!(str = ft_strdup(line)))
-		error_msg("error\n");				//error msg
+		error_msg("error11\n");				//error msg
 	ft_lstadd_back(map_list, ft_lstnew(str));
 }
 
@@ -80,7 +80,7 @@ void	parse_map(t_map *map, char *line)
 	else
 	{
 		if (!list_to_array(map_list, map))
-			error_msg("error\n");			//error msg
+			error_msg("error12\n");			//error msg
 		ft_lstclear(&map_list, NULL);
 		pos_player(map);
 	}

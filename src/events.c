@@ -6,12 +6,11 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 09:16:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/03/03 14:14:16 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/09 15:10:28 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "keys.h"
 #include <math.h>
 #include <stdio.h>
 

@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/03/04 15:03:02 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/09 15:11:03 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@
 # define RES_Y_MAX 1440
 # define FOV 60
 
-# define EAST_COLOR 0x1a1a1a
-# define WEST_COLOR 0x1a1a1a
-# define NORTH_COLOR 0x333333
-# define SOUTH_COLOR 0x333333
+# define KEY_W 1
+# define KEY_A 2
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_Z 122
+# define KEY_Q 113
+# define KEY_RIGHT 65363
+# define KEY_LEFT 65361
+# define KEY_ESC 65307
 
 typedef struct		s_mlx
 {

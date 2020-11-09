@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:33:00 by gdinet            #+#    #+#             */
-/*   Updated: 2020/03/03 15:28:31 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/09 15:25:11 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include "cub3d.h"
 #include "mlx.h"
 #include <stdio.h>
+
+#define EAST_COLOR 0xA95252
+#define WEST_COLOR 0xA95252
+#define SOUTH_COLOR 0x5252A9
 
 t_distance		init_dist(t_vector *ray)
 {
@@ -59,24 +63,25 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 	int		line;
 	int		wall_height;
 	float	hit;
-	int		get = 0;
+	int		get;
 
 	if (dist->side_hit == 0)
 	{
 		distance = fish_eye(dist->side_x, angle, map->angle);
+		hit = wall_hit(dist, ray, distance);
 		if (dist->step_x == 1)
-			color = EAST_COLOR;
+			get = 1; //east
 		else
-			color = WEST_COLOR;
+			get = 2; //west
 	}
 	else
 	{
 		distance = fish_eye(dist->side_y, angle, map->angle);
 		hit = wall_hit(dist, ray, distance);
 		if (dist->step_y == 1)
-			color = SOUTH_COLOR;
+			get = 3; //south
 		else
-			get = 1;
+			get = 4; //north
 	}
 	wall_height = (1 / distance) * map->screen_d;
 	line = 0;
@@ -89,6 +94,12 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 		else
 		{
 			if (get == 1)
+				color = get_color(&map->east, line, wall_height, map, hit);
+			else if (get == 2)
+				color = get_color(&map->west, line, wall_height, map, hit);
+			else if (get == 3)
+				color = get_color(&map->south, line, wall_height, map, hit);
+			else if (get == 4)
 				color = get_color(&map->north, line, wall_height, map, hit);
 			mlx->img[(mlx->size * line / 4) + col] = color;
 		}
