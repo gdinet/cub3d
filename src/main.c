@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 15:12:24 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/09 15:55:35 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+
+int		close_window(t_param *param) //free all
+{
+	(void)param;
+	exit(0);
+}
 
 int		key_press(int keycode, t_param *param)
 {
@@ -33,7 +39,9 @@ int		key_press(int keycode, t_param *param)
 	if (keycode == KEY_LEFT)
 		param->key |= LEFT;
 	if (keycode == KEY_ESC)
-		exit(0);
+		close_window(param);
+	if (keycode != KEY_Z && keycode != KEY_Q && keycode != KEY_S && keycode != KEY_D && keycode != KEY_LEFT && keycode != KEY_RIGHT && keycode != KEY_ESC)
+		printf("%d\n", keycode);
 	return (0);
 }
 
@@ -61,12 +69,6 @@ int		loop_hook(t_param *param)
 	rotate(param->key, param->map);
 	render(param->map, param->mlx);
 	return (0);
-}
-
-int		close_window(t_param *param)
-{
-	(void)param;
-	exit(0);
 }
 
 int		main(int ac, char **av)

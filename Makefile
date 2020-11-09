@@ -6,7 +6,7 @@
 #    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/21 15:11:17 by gdinet            #+#    #+#              #
-#    Updated: 2020/11/09 12:02:58 by gdinet           ###   ########.fr        #
+#    Updated: 2020/11/09 17:03:12 by gdinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC			= src/map_parsing.c \
 			  src/init.c \
 			  src/events.c \
 			  src/texture.c \
+			  src/sprite.c \
 			  src/main.c
 
 OBJ			= $(SRC:%.c=%.o)

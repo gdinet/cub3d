@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 15:11:03 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/09 17:04:08 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # define RES_Y_MAX 1440
 # define FOV 60
 
-# define KEY_W 1
-# define KEY_A 2
+# define KEY_W 119
+# define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_Z 122
@@ -101,6 +101,14 @@ typedef struct		s_param
 	t_key	key;
 }					t_param;
 
+typedef struct		s_sprite
+{
+	t_text	sprt;
+	float	dist;
+	float	pos_x;
+	float	pos_y;
+}					t_sprite;
+
 t_mlx				init_mlx(void);
 void				init_win(t_map *map, t_mlx *mlx);
 t_map				init_map(void);
@@ -118,6 +126,8 @@ void				move_side(t_key key, t_map *map);
 void				rotate(t_key key, t_map *map);
 int					get_color(t_text *text, int line, int wall_h, t_map *map, float hit);
 float				wall_hit(t_distance *dist, t_vector *ray, float distance);
+void				sort_sprite(float x, float y, t_list *lst_sprite);
+
 void				error_msg(char *str);
 
 #endif
