@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 11:12:26 by gdinet            #+#    #+#             */
-/*   Updated: 2020/03/04 15:19:48 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/08 15:42:43 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 void	check_data(t_map *map)
 {
 	if (map->res_x == 0 || map->res_y == 0)
-		error_msg("error");				//msg
+		error_msg("error 10\n");				//msg
 	if (map->north.img == NULL || map->south.img == NULL || map->west.img == NULL
 			|| map->east.img == NULL || map->sprite.img == NULL)
-		error_msg("error");				//msg
+		error_msg("error 11\n");				//msg
 	if (map->floor == -1 || map->ceil == -1)
-		error_msg("error");				//msg
+		error_msg("error 12\n");				//msg
 }
 
 int		is_map(char *line)
@@ -73,7 +73,7 @@ void	check_map(char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ' && is_open(map, i, j))
-				error_msg("error\n");			//msg
+				error_msg("error 13\n");			//msg
 			j++;
 		}
 		i++;

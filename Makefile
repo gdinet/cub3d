@@ -6,13 +6,18 @@
 #    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/21 15:11:17 by gdinet            #+#    #+#              #
-#    Updated: 2020/03/04 14:08:56 by gdinet           ###   ########.fr        #
+#    Updated: 2020/11/09 12:02:58 by gdinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= gcc
 
-CFLAG		= -Wall -Wextra -Werror -I ./inc
+CFLAG		= -Wall -Wextra -Werror -I $(INC)
+
+FT			:= libft
+MLX			:= minilibx-linux
+
+INC			= ./inc
 
 SRC			= src/map_parsing.c \
 			  src/parsing.c \
@@ -27,19 +32,33 @@ OBJ			= $(SRC:%.c=%.o)
 
 NAME		= cub3d
 
-all:		$(NAME)
+all:		minilibx $(NAME)
+
+libft:
+			make -C $(FT)
+
+minilibx:
+			make -C $(MLX)
+			cp $(MLX)/libmlx.a ./
+			cp $(MLX)/mlx.h $(INC)
 
 $(NAME):	$(OBJ)
-			$(CC) -o $@ $(OBJ) -L./libft -lft -l mlx -framework OpenGL -framework AppKit
+			make -C $(FT)
+			$(CC) $(CFLAG) -o $@ $(OBJ) -L./libft -lft -l mlx -lX11 -lXext -lbsd -lm
 
 .c.o:
 			$(CC) $(CFLAG) -c $< -o $(<:.c=.o)
 
 clean:
-			rm -rf $(OBJ)
+			make -C $(FT) $@
+			make -C $(MLX) $@
+			rm -f $(OBJ)
 
 fclean:		clean
-			rm $(NAME)
+			make -C $(FT) $@
+			rm -f libmlx.a
+			rm -f $(INC)/mlx.h
+			rm -f $(NAME)
 
 re:			fclean all
 

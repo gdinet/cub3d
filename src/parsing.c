@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 08:15:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/03/04 15:19:39 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/09 11:54:54 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	error_msg(char *str)			//a bouger
 void	parse_res(t_map *map, char *line, t_mlx *mlx)
 {
 	if (map->res_x != 0 || map->res_y != 0)
-		error_msg("error\n");			//msg
+		error_msg("error 1\n");			//msg
 	if (*line != ' ')
-		error_msg("error\n");			//error msg
+		error_msg("error 2\n");			//error msg
 	while (*line == ' ')
 		line++;
 	map->res_x = ft_atoi(line);
@@ -38,7 +38,7 @@ void	parse_res(t_map *map, char *line, t_mlx *mlx)
 		line++;
 	map->res_y = ft_atoi(line);
 	if (map->res_x <= 0 || map->res_y <= 0)
-		error_msg("error\n");			//error msg
+		error_msg("error 3\n");			//error msg
 	if (map->res_x > RES_X_MAX)
 		map->res_x = RES_X_MAX;
 	if (map->res_y > RES_Y_MAX)
@@ -53,9 +53,9 @@ void	parse_texture(t_text *text, char *line, t_mlx *mlx)
 	int		endian;
 
 	if (text->img != NULL)
-		error_msg("error");				//error msg
+		error_msg("error 4\n");				//error msg
 	if (*line != ' ')
-		error_msg("error\n");			//error msg
+		error_msg("error 5\n");			//error msg
 	while (*line == ' ')
 		line++;
 	img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, line, &text->width, &text->height);	//NULL si ' ' a la fin
@@ -69,9 +69,9 @@ void	parse_color(int *color, char *line)
 	int b;
 
 	if (*color != -1)
-		error_msg("error");				//msg
+		error_msg("error 6\n");				//msg
 	if (*line != ' ')
-		error_msg("error\n");			//error msg
+		error_msg("error 7\n");			//error msg
 	while (*line == ' ')
 		line++;
 	r = ft_atoi(line);
@@ -82,7 +82,7 @@ void	parse_color(int *color, char *line)
 		line++;
 	b = ft_atoi(++line);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		error_msg("error\n");			//error msg
+		error_msg("error 8\n");			//error msg
 	*color = (r << 16) + (g << 8) + b;
 }
 
@@ -105,17 +105,19 @@ void	parse_data(t_map *map, char *line, t_mlx *mlx)
 	else if (*line == 'S')
 		parse_texture(&map->sprite, line + 1, mlx);
 	else
-		error_msg("error\n");		//error msg
+		error_msg("error 9\n");		//error msg
 }
 
 void	parsing(t_map *map, t_mlx *mlx, int fd)
 {
 	char	*line;
 	int		in_map;
+	int i=1;
 
 	in_map = 0;
-	while (get_next_line(fd, &line) == 1)
+	while (get_next_line(fd, &line) > 0)
 	{
+		printf("%d : %s\n",i++, line);
 		if (*line)
 		{
 			if (!in_map && is_map(line))

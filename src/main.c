@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/03/04 15:05:00 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/08 15:39:18 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,13 @@ int		main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	parsing(&map, &mlx, fd);
 	close(fd);
+	printf("map ok\n");
 	param.map = &map;
 	param.mlx = &mlx;
 	param.key = 0;
-	mlx_hook(mlx.win, 2, 0, &key_press, &param);
-	mlx_hook(mlx.win, 3, 0, &key_release, &param);
+	
+	mlx_hook(mlx.win, 2, 1L << 0, &key_press, &param);
+	mlx_hook(mlx.win, 3, 1L << 1, &key_release, &param);
 	mlx_hook(mlx.win, 17, 0, &close_window, &param);
 	mlx_loop_hook(mlx.mlx_ptr, &loop_hook, &param);
 	mlx_loop(mlx.mlx_ptr);
