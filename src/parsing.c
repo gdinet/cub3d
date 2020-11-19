@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 08:15:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 14:58:15 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/10 16:20:25 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 void	error_msg(char *str)			//a bouger
 {
-	printf("%s", str);
+	printf("%s", str);					//printf
 	exit(0);
 }
 
@@ -133,4 +133,6 @@ void	parsing(t_map *map, t_mlx *mlx, int fd)
 	parse_map(map, NULL);
 	check_map(map->map);
 	map->screen_d = (map->res_x / 2) / tan((float)FOV * M_PI / 360);
+	if (!(map->dist_array = malloc(sizeof(float) * map->res_x)))
+		error_msg("error 17\n");
 }

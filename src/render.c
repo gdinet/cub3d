@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:33:00 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 15:25:11 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/16 15:42:31 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 		else
 			get = 4; //north
 	}
+	map->dist_array[col] = distance;
 	wall_height = (1 / distance) * map->screen_d;
 	line = 0;
 	while (line < map->res_y)
@@ -160,6 +161,5 @@ int		render(t_map *map, t_mlx *mlx)
 		a = (a + delta_a > 360) ? a + delta_a - 360 : a + delta_a;
 		col++;
 	}
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win, mlx->img_ptr, 0, 0);
 	return (0);
 }

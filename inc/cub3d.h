@@ -6,12 +6,14 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 17:04:08 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/16 15:44:18 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# include "libft.h"
 
 # define RES_X_MAX 2560
 # define RES_Y_MAX 1440
@@ -65,9 +67,11 @@ typedef struct		s_map
 	t_text	south;
 	t_text	east;
 	t_text	west;
+	t_text	sprite;
 	int		floor;
 	int		ceil;
-	t_text	sprite;
+	t_list	*lst_sprite;
+	float	*dist_array;
 	float	pos_x;
 	float	pos_y;
 	float	angle;
@@ -103,7 +107,6 @@ typedef struct		s_param
 
 typedef struct		s_sprite
 {
-	t_text	sprt;
 	float	dist;
 	float	pos_x;
 	float	pos_y;
@@ -119,6 +122,7 @@ void				check_data(t_map *map);
 int					is_map(char *line);
 void				check_map(char **map);
 
+void				bmp_file(t_map *map, t_mlx *mlx);
 int					render(t_map *map, t_mlx *mlx);
 void				mlx_end(t_mlx *mlx);
 void				move_straight(t_key key, t_map *map);

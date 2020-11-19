@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 15:55:35 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/16 15:57:14 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		key_press(int keycode, t_param *param)
 	if (keycode == KEY_ESC)
 		close_window(param);
 	if (keycode != KEY_Z && keycode != KEY_Q && keycode != KEY_S && keycode != KEY_D && keycode != KEY_LEFT && keycode != KEY_RIGHT && keycode != KEY_ESC)
-		printf("%d\n", keycode);
+		printf("%d\n", keycode);		//delete
 	return (0);
 }
 
@@ -68,6 +68,8 @@ int		loop_hook(t_param *param)
 	move_side(param->key, param->map);
 	rotate(param->key, param->map);
 	render(param->map, param->mlx);
+	mlx_put_image_to_window(param->mlx->mlx_ptr, param->mlx->win,
+	param->mlx->img_ptr, 0, 0);
 	return (0);
 }
 
@@ -92,9 +94,11 @@ int		main(int ac, char **av)
 	param.map = &map;
 	param.mlx = &mlx;
 	param.key = 0;
+	if (ac == 3 && !ft_strncmp(av[2], "--save", 7))
+		bmp_file(&map, &mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, &key_press, &param);
 	mlx_hook(mlx.win, 3, 1L << 1, &key_release, &param);
-	mlx_hook(mlx.win, 17, 0, &close_window, &param);
+	mlx_hook(mlx.win, 17, 1L << 17, &close_window, &param);
 	mlx_loop_hook(mlx.mlx_ptr, &loop_hook, &param);
 	mlx_loop(mlx.mlx_ptr);
 	return (0);

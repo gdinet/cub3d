@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 14:32:22 by gdinet            #+#    #+#             */
-/*   Updated: 2020/03/04 13:46:02 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/10 16:12:21 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ t_map		init_map(void)
 	map.south.img = NULL;
 	map.east.img = NULL;
 	map.west.img = NULL;
+	map.sprite.img = NULL;
 	map.floor = -1;
 	map.ceil = -1;
-	map.sprite.img = NULL;
+	map.lst_sprite = NULL;
 	map.pos_x = -1.0;
 	map.pos_y = -1.0;
 	map.angle = -1.0;

@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:26:10 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 15:19:44 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:47:10 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ int		list_to_array(t_list *map_list, t_map *map)
 	return (1);
 }
 
+void	add_sprite(t_map *map, int x, int y)
+{
+	t_sprite	new;
+
+	new.pos_x = x + 0.5;
+	new.pos_y = y + 0.5;
+	ft_lstadd_front(&(map->lst_sprite), ft_lstnew(&new));
+}
+
 void	pos_player(t_map *map)
 {
 	int		x;
@@ -57,7 +66,9 @@ void	pos_player(t_map *map)
 		x = -1;
 		while (map->map[y][++x])
 		{
-			if (ft_isalpha(map->map[y][x]))				//verif non attribue
+			if (map->map[y][x] == '2')					//ajouter autres sprites
+				add_sprite(map, x, y);
+			if (ft_isalpha(map->map[y][x]))				//verif player non attribue
 			{
 				if (map->map[y][x] == 'N' || map->map[y][x] == 'S')
 					map->angle = (map->map[y][x] == 'S') ? 90.0 : 270.0;
