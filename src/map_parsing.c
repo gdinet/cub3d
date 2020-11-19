@@ -6,15 +6,13 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:26:10 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/16 14:47:10 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/19 16:57:45 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 #include "cub3d.h"
-
-#include <stdio.h>
 
 void	add_to_list(char *line, t_list **map_list)
 {

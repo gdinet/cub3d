@@ -6,13 +6,12 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 10:56:11 by gdinet            #+#    #+#             */
-/*   Updated: 2020/03/03 15:28:29 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/19 16:58:18 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
-#include <stdio.h>
 
 float	wall_hit(t_distance *dist, t_vector *ray, float distance)
 {

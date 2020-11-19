@@ -6,18 +6,13 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:33:00 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/16 15:42:31 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/19 16:57:25 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "cub3d.h"
 #include "mlx.h"
-#include <stdio.h>
-
-#define EAST_COLOR 0xA95252
-#define WEST_COLOR 0xA95252
-#define SOUTH_COLOR 0x5252A9
 
 t_distance		init_dist(t_vector *ray)
 {

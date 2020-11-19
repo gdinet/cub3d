@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/16 15:57:14 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/19 16:56:33 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "mlx.h"
 #include <fcntl.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -90,7 +89,6 @@ int		main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	parsing(&map, &mlx, fd);
 	close(fd);
-	printf("map ok\n");
 	param.map = &map;
 	param.mlx = &mlx;
 	param.key = 0;

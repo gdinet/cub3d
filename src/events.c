@@ -6,13 +6,12 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 09:16:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 15:10:28 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/19 16:57:04 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
-#include <stdio.h>
 
 void	move_straight(t_key key, t_map *map)
 {

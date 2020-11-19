@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/16 15:44:18 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/19 16:56:24 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "libft.h"
+# include <stdio.h>			//a supprimer
 
 # define RES_X_MAX 2560
 # define RES_Y_MAX 1440

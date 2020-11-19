@@ -6,14 +6,13 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 11:12:26 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/09 15:21:16 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/19 16:56:57 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 void	check_data(t_map *map)
 {

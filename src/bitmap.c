@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:51:30 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/19 14:47:22 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/19 16:56:45 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <stdio.h>
 
 void	bmp_header(int fd, t_map *map, t_mlx *mlx)
 {

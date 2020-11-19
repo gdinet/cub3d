@@ -6,18 +6,16 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 08:15:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/10 16:20:25 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/19 16:58:08 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <math.h>
+#include <unistd.h>
 #include "cub3d.h"
 #include "libft.h"
 #include "mlx.h"
-
-#include <unistd.h>
-#include <stdio.h>
 
 void	error_msg(char *str)			//a bouger
 {
