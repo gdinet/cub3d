@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:51:30 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/19 16:56:45 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/25 15:35:24 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	bmp_image(int fd, t_map *map, t_mlx *mlx)
 {
 	int		x;
 	int		y;
-	int 	color;
+	int		color;
 
 	y = map->res_y - 1;
 	while (y >= 0)

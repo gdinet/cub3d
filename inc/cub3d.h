@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/19 16:56:24 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/25 00:05:13 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,17 @@ typedef struct		s_texture
 	int		height;
 }					t_text;
 
+typedef struct		s_distance
+{
+	int		step_x;
+	int		step_y;
+	float	delta_x;
+	float	delta_y;
+	float	side_x;
+	float	side_y;
+	int		side_hit;
+}					t_distance;
+
 typedef struct		s_map
 {
 	int		res_x;
@@ -77,17 +88,6 @@ typedef struct		s_map
 	float	pos_y;
 	float	angle;
 }					t_map;
-
-typedef struct		s_distance
-{
-	int		step_x;
-	int		step_y;
-	float	delta_x;
-	float	delta_y;
-	float	side_x;
-	float	side_y;
-	int		side_hit;
-}					t_distance;
 
 typedef enum		e_key
 {
@@ -132,6 +132,7 @@ void				rotate(t_key key, t_map *map);
 int					get_color(t_text *text, int line, int wall_h, t_map *map, float hit);
 float				wall_hit(t_distance *dist, t_vector *ray, float distance);
 void				sort_sprite(float x, float y, t_list *lst_sprite);
+void				print_sprite(t_map *map, t_sprite *sprite, t_mlx *mlx);
 
 void				error_msg(char *str);
 

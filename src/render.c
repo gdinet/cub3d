@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:33:00 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/19 16:57:25 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/25 15:34:14 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 
 	if (dist->side_hit == 0)
 	{
+		hit = wall_hit(dist, ray, dist->side_x);
 		distance = fish_eye(dist->side_x, angle, map->angle);
-		hit = wall_hit(dist, ray, distance);
 		if (dist->step_x == 1)
 			get = 1; //east
 		else
@@ -71,8 +71,8 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 	}
 	else
 	{
+		hit = wall_hit(dist, ray, dist->side_y);
 		distance = fish_eye(dist->side_y, angle, map->angle);
-		hit = wall_hit(dist, ray, distance);
 		if (dist->step_y == 1)
 			get = 3; //south
 		else
@@ -103,7 +103,7 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 	}
 }
 
-void			dda(t_vector *ray, t_map *map, t_mlx *mlx, int col)
+void		dda(t_vector *ray, t_map *map, t_mlx *mlx, int col)
 {
 	int			hit;
 	int			x;
@@ -128,7 +128,7 @@ void			dda(t_vector *ray, t_map *map, t_mlx *mlx, int col)
 			y += dist.step_y;
 			dist.side_hit = 1;
 		}
-		hit = (map->map[y][x] != '0');
+		hit = (map->map[y][x] == '1');
 	}
 	dist.side_x -= dist.delta_x;
 	dist.side_y -= dist.delta_y;

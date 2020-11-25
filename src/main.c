@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/19 16:56:33 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/25 15:37:59 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int		key_press(int keycode, t_param *param)
 		param->key |= LEFT;
 	if (keycode == KEY_ESC)
 		close_window(param);
-	if (keycode != KEY_Z && keycode != KEY_Q && keycode != KEY_S && keycode != KEY_D && keycode != KEY_LEFT && keycode != KEY_RIGHT && keycode != KEY_ESC)
-		printf("%d\n", keycode);		//delete
 	return (0);
 }
 
@@ -66,7 +64,9 @@ int		loop_hook(t_param *param)
 	move_straight(param->key, param->map);
 	move_side(param->key, param->map);
 	rotate(param->key, param->map);
+	sort_sprite(param->map->pos_x, param->map->pos_y, param->map->lst_sprite);
 	render(param->map, param->mlx);
+	print_sprite(param->map, param->map->lst_sprite->content, param->mlx);
 	mlx_put_image_to_window(param->mlx->mlx_ptr, param->mlx->win,
 	param->mlx->img_ptr, 0, 0);
 	return (0);
