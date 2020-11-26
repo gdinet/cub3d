@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/25 00:05:13 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 10:12:49 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int					get_color(t_text *text, int line, int wall_h, t_map *map, float hit);
 float				wall_hit(t_distance *dist, t_vector *ray, float distance);
 void				sort_sprite(float x, float y, t_list *lst_sprite);
 void				print_sprite(t_map *map, t_sprite *sprite, t_mlx *mlx);
+void				sprite(t_map *map, t_mlx *mlx);
 
 void				error_msg(char *str);
 

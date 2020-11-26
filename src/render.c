@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:33:00 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/25 15:34:14 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 12:14:23 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void		dda(t_vector *ray, t_map *map, t_mlx *mlx, int col)
 	print_wall(&dist, map, mlx, col, ray->angle, ray);
 }
 
-int		render(t_map *map, t_mlx *mlx)
+int			render(t_map *map, t_mlx *mlx)
 {
 	float		a;
 	float		delta_a;

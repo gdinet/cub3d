@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:26:10 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/25 15:28:55 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 12:15:06 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	add_to_list(char *line, t_list **map_list)
 	char	*str;
 
 	if (!is_map(line))
-		error_msg("error10\n");					//msg
+		error_msg("Map : incorrect character");
 	if (!(str = ft_strdup(line)))
-		error_msg("error11\n");				//error msg
+		error_msg("Malloc error");
 	ft_lstadd_back(map_list, ft_lstnew(str));
 }
 
-int		list_to_array(t_list *map_list, t_map *map)
+void	list_to_array(t_list *map_list, t_map *map)
 {
 	int		i;
 	t_list	*tmp;
@@ -33,7 +33,7 @@ int		list_to_array(t_list *map_list, t_map *map)
 	i = 0;
 	tmp = map_list;
 	if (!(map->map = malloc(sizeof(char *) * (ft_lstsize(map_list) + 1))))
-		return (0);
+		error_msg("Malloc error");
 	while (tmp)
 	{
 		map->map[i] = tmp->content;
@@ -41,7 +41,6 @@ int		list_to_array(t_list *map_list, t_map *map)
 		tmp = tmp->next;
 	}
 	map->map[i] = NULL;
-	return (1);
 }
 
 void	add_sprite(t_map *map, int x, int y)
@@ -49,7 +48,7 @@ void	add_sprite(t_map *map, int x, int y)
 	t_sprite	*new;
 
 	if (!(new = malloc(sizeof(t_sprite))))
-		error_msg("malloc error\n");
+		error_msg("Malloc error\n");
 	new->pos_x = x + 0.5;
 	new->pos_y = y + 0.5;
 	ft_lstadd_front(&(map->lst_sprite), ft_lstnew(new));
@@ -90,8 +89,7 @@ void	parse_map(t_map *map, char *line)
 		add_to_list(line, &map_list);
 	else
 	{
-		if (!list_to_array(map_list, map))
-			error_msg("error12\n");			//error msg
+		list_to_array(map_list, map);
 		ft_lstclear(&map_list, NULL);
 		pos_item(map);
 	}

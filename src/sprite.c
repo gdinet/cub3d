@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:32:30 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/25 16:28:31 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 10:47:49 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "cub3d.h"
 #include <math.h>
 
-#define SPRITE 0x330000
-#define SPRITE_SIZE 0.5
+#define SPRITE_SIZE 1
 
 void	sprite_dist(float x, float y, t_list *lst_sprite)
 {
@@ -74,12 +73,12 @@ int		sprite_color(t_text *sprite, float i, float j, float size)
 
 void	print_sprite(t_map *map, t_sprite *sprite, t_mlx *mlx)
 {
-	float	angle;
-	float	size;
-	float	col;
-	int		i;
-	int		j;
-	int		color;
+	float			angle;
+	float			size;
+	float			col;
+	int				i;
+	int				j;
+	unsigned int	color;
 
 	angle = (atan2(sprite->pos_y - map->pos_y,
 	sprite->pos_x - map->pos_x) * 180 / M_PI) - map->angle;
@@ -98,11 +97,23 @@ void	print_sprite(t_map *map, t_sprite *sprite, t_mlx *mlx)
 			{
 				color = sprite_color(&map->sprite, i - (map->res_x / 2 + col - size / 2),
 				j - (map->res_y - size) / 2, size);
-				if (color)
+				if (color != 0xff000000)
 					mlx->img[(mlx->size * j / 4) + i] = color;
 				j++;
 			}
 		}
 		i++;
+	}
+}
+
+void	sprite(t_map *map, t_mlx *mlx)
+{
+	t_list	*tmp;
+
+	tmp = map->lst_sprite;
+	while (tmp)
+	{
+		print_sprite(map, tmp->content, mlx);
+		tmp = tmp->next;
 	}
 }

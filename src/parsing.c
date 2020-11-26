@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 08:15:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/23 16:39:23 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 11:01:13 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@
 
 void	error_msg(char *str)			//a bouger
 {
-	printf("%s", str);					//printf
+	ft_putendl_fd(str, 1);
+	//free
 	exit(0);
 }
 
 void	parse_res(t_map *map, char *line, t_mlx *mlx)
 {
 	if (map->res_x != 0 || map->res_y != 0)
-		error_msg("error 1\n");			//msg
+		error_msg("Resolution already set");
 	if (*line != ' ')
-		error_msg("error 2\n");			//error msg
+		error_msg("Unknown parameter");
 	while (*line == ' ')
 		line++;
 	map->res_x = ft_atoi(line);
@@ -36,7 +37,7 @@ void	parse_res(t_map *map, char *line, t_mlx *mlx)
 		line++;
 	map->res_y = ft_atoi(line);
 	if (map->res_x <= 0 || map->res_y <= 0)
-		error_msg("error 3\n");			//error msg
+		error_msg("Resolution can't be negative");
 	if (map->res_x > RES_X_MAX)
 		map->res_x = RES_X_MAX;
 	if (map->res_y > RES_Y_MAX)
@@ -44,16 +45,16 @@ void	parse_res(t_map *map, char *line, t_mlx *mlx)
 	init_win(map, mlx);
 }
 
-void	parse_texture(t_text *text, char *line, t_mlx *mlx)
+void	parse_texture(t_text *text, char *line, t_mlx *mlx) //segfault si mauvais path
 {
 	void	*img_ptr;
 	int		bpp;
 	int		endian;
 
 	if (text->img != NULL)
-		error_msg("error 4\n");				//error msg
+		error_msg("Texture already set");
 	if (*line != ' ')
-		error_msg("error 5\n");			//error msg
+		error_msg("Unknown parameter");
 	while (*line == ' ')
 		line++;
 	img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, line, &text->width, &text->height);	//NULL si ' ' a la fin
@@ -67,9 +68,9 @@ void	parse_color(int *color, char *line)
 	int b;
 
 	if (*color != -1)
-		error_msg("error 6\n");				//msg
+		error_msg("Color already set");
 	if (*line != ' ')
-		error_msg("error 7\n");			//error msg
+		error_msg("Unknown parameter");
 	while (*line == ' ')
 		line++;
 	r = ft_atoi(line);
@@ -80,7 +81,7 @@ void	parse_color(int *color, char *line)
 		line++;
 	b = ft_atoi(++line);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		error_msg("error 8\n");			//error msg
+		error_msg("Color must be in range [0:255]");
 	*color = (r << 16) + (g << 8) + b;
 }
 
@@ -102,8 +103,8 @@ void	parse_data(t_map *map, char *line, t_mlx *mlx)
 		parse_color(&map->ceil, line + 1);
 	else if (*line == 'S')
 		parse_texture(&map->sprite, line + 1, mlx);
-	else
-		error_msg("error 9\n");		//error msg
+	else							//error si ligne commence par ' '
+		error_msg("Unknown parameter");
 }
 
 void	parsing(t_map *map, t_mlx *mlx, int fd)
@@ -132,5 +133,5 @@ void	parsing(t_map *map, t_mlx *mlx, int fd)
 	check_map(map->map);
 	map->screen_d = (map->res_x / 2) / tan((float)FOV * M_PI / 360);
 	if (!(map->dist_array = malloc(sizeof(float) * map->res_x)))
-		error_msg("error 17\n");
+		error_msg("Malloc error");
 }

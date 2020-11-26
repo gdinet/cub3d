@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/25 15:37:59 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 10:41:19 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int		loop_hook(t_param *param)
 	move_straight(param->key, param->map);
 	move_side(param->key, param->map);
 	rotate(param->key, param->map);
-	sort_sprite(param->map->pos_x, param->map->pos_y, param->map->lst_sprite);
 	render(param->map, param->mlx);
-	print_sprite(param->map, param->map->lst_sprite->content, param->mlx);
+	sort_sprite(param->map->pos_x, param->map->pos_y, param->map->lst_sprite);
+	sprite(param->map, param->mlx);
 	mlx_put_image_to_window(param->mlx->mlx_ptr, param->mlx->win,
 	param->mlx->img_ptr, 0, 0);
 	return (0);

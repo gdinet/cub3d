@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 11:12:26 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/25 15:36:12 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 12:10:49 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 void	check_data(t_map *map)
 {
 	if (map->res_x == 0 || map->res_y == 0)
-		error_msg("error 13\n");				//msg
+		error_msg("Resolution not set");
 	if (map->north.img == NULL || map->south.img == NULL ||
 	map->west.img == NULL || map->east.img == NULL || map->sprite.img == NULL)
-		error_msg("error 14\n");				//msg
+		error_msg("Texture not set");
 	if (map->floor == -1 || map->ceil == -1)
-		error_msg("error 15\n");				//msg
+		error_msg("Floor or ceil color not set");
 }
 
 int		is_map(char *line)
@@ -72,7 +72,7 @@ void	check_map(char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ' && is_open(map, i, j))
-				error_msg("error 16\n");			//msg
+				error_msg("Map not closed");
 			j++;
 		}
 		i++;
