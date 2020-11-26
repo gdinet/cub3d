@@ -6,22 +6,16 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 10:41:19 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 15:21:52 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "mlx.h"
+#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <math.h>
-#include <stdlib.h>
 
-int		close_window(t_param *param) //free all
-{
-	(void)param;
-	exit(0);
-}
 
 int		key_press(int keycode, t_param *param)
 {
@@ -65,39 +59,57 @@ int		loop_hook(t_param *param)
 	move_side(param->key, param->map);
 	rotate(param->key, param->map);
 	render(param->map, param->mlx);
-	sort_sprite(param->map->pos_x, param->map->pos_y, param->map->lst_sprite);
 	sprite(param->map, param->mlx);
 	mlx_put_image_to_window(param->mlx->mlx_ptr, param->mlx->win,
 	param->mlx->img_ptr, 0, 0);
 	return (0);
 }
 
+int		check_arg(int ac, char **av)
+{
+	if (ac == 1 || (ft_strncmp(av[1] + ft_strlen(av[1]) - 4, ".cub", 5)))
+	{
+		ft_putendl_fd("Please give a map (file.cub) as first argument", 1);
+		return (1);
+	}
+	else if (ac == 3 && !ft_strncmp(av[2], "--save", 7))
+	{
+		ft_putendl_fd("The second argument must be --save or nothing", 1);
+		return (1);
+	}
+	else if (ac > 3)
+	{
+		ft_putendl_fd("2 arguments maximum", 1);
+		return (1);
+	}
+	return (0);
+}
+
 int		main(int ac, char **av)
 {
+	t_param		param;
 	t_map		map;
 	t_mlx		mlx;
 	int			fd;
-	t_param		param;
 
-	if (ac == 1)
+	if (!check_arg(ac, av))
 	{
-		printf("map svp\n");
-		return (0);
+		map = init_map();
+		mlx = init_mlx();
+		param.map = &map;
+		param.mlx = &mlx;
+		param.key = 0;
+		if ((fd = open(av[1], O_RDONLY)) == -1)
+			error_msg("Error opening file", &param);
+		parsing(&param, fd);
+		close(fd);
+		if (ac == 3)
+			bmp_file(&map, &mlx);
+		mlx_hook(mlx.win, 2, 1L << 0, &key_press, &param);
+		mlx_hook(mlx.win, 3, 1L << 1, &key_release, &param);
+		mlx_hook(mlx.win, 17, 1L << 17, &close_window, &param);
+		mlx_loop_hook(mlx.mlx_ptr, &loop_hook, &param);
+		mlx_loop(mlx.mlx_ptr);
 	}
-	map = init_map();
-	mlx = init_mlx();
-	fd = open(av[1], O_RDONLY);
-	parsing(&map, &mlx, fd);
-	close(fd);
-	param.map = &map;
-	param.mlx = &mlx;
-	param.key = 0;
-	if (ac == 3 && !ft_strncmp(av[2], "--save", 7))
-		bmp_file(&map, &mlx);
-	mlx_hook(mlx.win, 2, 1L << 0, &key_press, &param);
-	mlx_hook(mlx.win, 3, 1L << 1, &key_release, &param);
-	mlx_hook(mlx.win, 17, 1L << 17, &close_window, &param);
-	mlx_loop_hook(mlx.mlx_ptr, &loop_hook, &param);
-	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }

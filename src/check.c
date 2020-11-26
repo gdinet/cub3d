@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 11:12:26 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 12:10:49 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 15:46:09 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 #include "libft.h"
 #include <stdlib.h>
 
-void	check_data(t_map *map)
+void	check_data(t_param *param)
 {
-	if (map->res_x == 0 || map->res_y == 0)
-		error_msg("Resolution not set");
-	if (map->north.img == NULL || map->south.img == NULL ||
-	map->west.img == NULL || map->east.img == NULL || map->sprite.img == NULL)
-		error_msg("Texture not set");
-	if (map->floor == -1 || map->ceil == -1)
-		error_msg("Floor or ceil color not set");
+	if (param->map->res_x == 0 || param->map->res_y == 0)
+		error_msg("Resolution not set", param);
+	if (param->map->north.img == NULL || param->map->south.img == NULL ||
+	param->map->west.img == NULL || param->map->east.img == NULL ||
+	param->map->sprite.img == NULL)
+		error_msg("Texture not set", param);
+	if (param->map->floor == -1 || param->map->ceil == -1)
+		error_msg("Floor or ceil color not set", param);
 }
 
 int		is_map(char *line)
@@ -60,7 +61,7 @@ int		is_open(char **map, int i, int j)
 	return (0);
 }
 
-void	check_map(char **map)
+void	check_map(char **map, t_param *param)
 {
 	int		i;
 	int		j;
@@ -72,7 +73,7 @@ void	check_map(char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ' && is_open(map, i, j))
-				error_msg("Map not closed");
+				error_msg("Map not closed", param);
 			j++;
 		}
 		i++;

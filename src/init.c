@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 14:32:22 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/23 15:30:53 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 15:25:52 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ t_mlx		init_mlx(void)
 	return (mlx);
 }
 
-void		init_win(t_map *map, t_mlx *mlx)
+void		init_win(t_param *param)
 {
-	mlx->win = mlx_new_window(mlx->mlx_ptr, map->res_x, map->res_y, "Cub3d");
-	mlx->img_ptr = mlx_new_image(mlx->mlx_ptr, map->res_x, map->res_y);
-	mlx->img = (int *)mlx_get_data_addr(mlx->img_ptr, &mlx->bpp,
-			&mlx->size, &mlx->endian);
+	param->mlx->win = mlx_new_window(param->mlx->mlx_ptr, param->map->res_x, param->map->res_y, "Cub3d");
+	param->mlx->img_ptr = mlx_new_image(param->mlx->mlx_ptr, param->map->res_x, param->map->res_y);
+	param->mlx->img = (int *)mlx_get_data_addr(param->mlx->img_ptr, &param->mlx->bpp,
+			&param->mlx->size, &param->mlx->endian);
 }
 
 t_map		init_map(void)

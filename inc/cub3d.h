@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 10:12:49 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 15:45:21 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,14 @@ typedef struct		s_sprite
 }					t_sprite;
 
 t_mlx				init_mlx(void);
-void				init_win(t_map *map, t_mlx *mlx);
+void				init_win(t_param *param);
 t_map				init_map(void);
 
-void				parsing(t_map *map, t_mlx *mlx, int fd);
-void				parse_map(t_map *map, char *line);
-void				check_data(t_map *map);
+void				parsing(t_param *param, int fd);
+void				parse_map(t_param *param, char *line);
+void				check_data(t_param *param);
 int					is_map(char *line);
-void				check_map(char **map);
+void				check_map(char **map, t_param *param);
 
 void				bmp_file(t_map *map, t_mlx *mlx);
 int					render(t_map *map, t_mlx *mlx);
@@ -135,6 +135,8 @@ void				sort_sprite(float x, float y, t_list *lst_sprite);
 void				print_sprite(t_map *map, t_sprite *sprite, t_mlx *mlx);
 void				sprite(t_map *map, t_mlx *mlx);
 
-void				error_msg(char *str);
+void				error_msg(char *str, t_param *param);
+void				error_msg_tmp(char *str);
+int					close_window(t_param *param);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:32:30 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 10:47:49 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:29:16 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	sprite(t_map *map, t_mlx *mlx)
 {
 	t_list	*tmp;
 
+	sort_sprite(map->pos_x, map->pos_y, map->lst_sprite);
 	tmp = map->lst_sprite;
 	while (tmp)
 	{
