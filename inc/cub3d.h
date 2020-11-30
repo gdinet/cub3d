@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 15:45:21 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/30 15:30:27 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct		s_texture
 	int		size;
 	int		width;
 	int		height;
+	void	*ptr;
 }					t_text;
 
 typedef struct		s_distance
@@ -99,6 +100,14 @@ typedef enum		e_key
 	LEFT = 32,
 }					t_key;
 
+typedef enum		e_dir
+{
+	north,
+	south,
+	east,
+	west,
+}					t_dir;
+
 typedef struct		s_param
 {
 	t_map	*map;
@@ -136,7 +145,6 @@ void				print_sprite(t_map *map, t_sprite *sprite, t_mlx *mlx);
 void				sprite(t_map *map, t_mlx *mlx);
 
 void				error_msg(char *str, t_param *param);
-void				error_msg_tmp(char *str);
 int					close_window(t_param *param);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 15:21:52 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/30 15:19:28 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-
 
 int		key_press(int keycode, t_param *param)
 {

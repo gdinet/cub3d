@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 11:26:10 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 15:42:55 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/30 15:21:13 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	list_to_array(t_list *map_list, t_param *param)
 
 	i = 0;
 	tmp = map_list;
-	if (!(param->map->map = malloc(sizeof(char *) * (ft_lstsize(map_list) + 1))))
+	if (!(param->map->map = malloc(sizeof(char *) *
+	(ft_lstsize(map_list) + 1))))
 		error_msg("Malloc error", param);
 	while (tmp)
 	{
@@ -54,30 +55,30 @@ void	add_sprite(t_param *param, int x, int y)
 	ft_lstadd_front(&(param->map->lst_sprite), ft_lstnew(new));
 }
 
-void	pos_item(t_param *param)
+void	pos_item(t_param *p)
 {
 	int		x;
 	int		y;
 
 	y = -1;
-	while (param->map->map[++y])
+	while (p->map->map[++y])
 	{
 		x = -1;
-		while (param->map->map[y][++x])
+		while (p->map->map[y][++x])
 		{
-			if (param->map->map[y][x] == '2')
-				add_sprite(param, x, y);
-			if (ft_isalpha(param->map->map[y][x]))
+			if (p->map->map[y][x] == '2')
+				add_sprite(p, x, y);
+			if (ft_isalpha(p->map->map[y][x]))
 			{
-				if (param->map->pos_x != -1.0)
-					error_msg("Beginning position already set", param);
-				if (param->map->map[y][x] == 'N' || param->map->map[y][x] == 'S')
-					param->map->angle = (param->map->map[y][x] == 'S') ? 90.1 : 270.1;
-				if (param->map->map[y][x] == 'E' || param->map->map[y][x] == 'W')
-					param->map->angle = (param->map->map[y][x] == 'E') ? 0.1 : 180.1;
-				param->map->map[y][x] = '0';
-				param->map->pos_x = x + 0.5;
-				param->map->pos_y = y + 0.5;
+				if (p->map->pos_x != -1.0)
+					error_msg("Beginning position already set", p);
+				if (p->map->map[y][x] == 'N' || p->map->map[y][x] == 'S')
+					p->map->angle = (p->map->map[y][x] == 'S') ? 90.1 : 270.1;
+				if (p->map->map[y][x] == 'E' || p->map->map[y][x] == 'W')
+					p->map->angle = (p->map->map[y][x] == 'E') ? 0.1 : 180.1;
+				p->map->map[y][x] = '0';
+				p->map->pos_x = x + 0.5;
+				p->map->pos_y = y + 0.5;
 			}
 		}
 	}

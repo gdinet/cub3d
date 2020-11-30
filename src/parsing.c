@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 08:15:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 15:45:53 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/30 15:23:10 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,22 @@ void	parse_res(t_param *param, char *line)
 	init_win(param);
 }
 
-void	parse_texture(t_text *text, char *line, t_param *param) //segfault si mauvais path
+void	parse_texture(t_text *text, char *line, t_param *p)
 {
-	void	*img_ptr;
 	int		bpp;
 	int		endian;
 
 	if (text->img != NULL)
-		error_msg("Texture already set", param);
+		error_msg("Texture already set", p);
 	if (*line != ' ')
-		error_msg("Unknown parameter", param);
+		error_msg("Unknown parameter", p);
 	while (*line == ' ')
 		line++;
-	img_ptr = mlx_xpm_file_to_image(param->mlx->mlx_ptr, line, &text->width, &text->height);	//NULL si ' ' a la fin
-	text->img = (int *)mlx_get_data_addr(img_ptr, &bpp, &text->size, &endian);			//verif si non NULL
+	text->ptr = mlx_xpm_file_to_image(p->mlx->mlx_ptr, line, &text->width,
+	&text->height);
+	if (text->ptr)
+		text->img = (int *)mlx_get_data_addr(text->ptr, &bpp, &text->size,
+		&endian);
 }
 
 void	parse_color(int *color, char *line, t_param *param)
@@ -80,6 +82,8 @@ void	parse_color(int *color, char *line, t_param *param)
 
 void	parse_data(t_param *param, char *line)
 {
+	while (ft_isspace(*line))
+		line++;
 	if (*line == 'R')
 		parse_res(param, line + 1);
 	else if (ft_strncmp(line, "NO", 2) == 0)
@@ -96,11 +100,11 @@ void	parse_data(t_param *param, char *line)
 		parse_color(&param->map->ceil, line + 1, param);
 	else if (*line == 'S')
 		parse_texture(&param->map->sprite, line + 1, param);
-	else							//error si ligne commence par ' '
+	else
 		error_msg("Unknown parameter", param);
 }
 
-void	parsing(t_param *param, int fd)
+void	parsing(t_param *p, int fd)
 {
 	char	*line;
 	int		in_map;
@@ -112,19 +116,19 @@ void	parsing(t_param *param, int fd)
 		{
 			if (!in_map && is_map(line))
 			{
-				check_data(param);
+				check_data(p);
 				in_map = 1;
 			}
 			if (in_map)
-				parse_map(param, line);
+				parse_map(p, line);
 			else
-				parse_data(param, line);
+				parse_data(p, line);
 		}
 		free(line);
 	}
-	parse_map(param, NULL);
-	check_map(param->map->map, param);
-	param->map->screen_d = (param->map->res_x / 2) / tan((float)FOV * M_PI / 360);
-	if (!(param->map->dist_array = malloc(sizeof(float) * param->map->res_x)))
-		error_msg("Malloc error", param);
+	parse_map(p, NULL);
+	check_map(p->map->map, p);
+	p->map->screen_d = (p->map->res_x / 2) / tan((float)FOV * M_PI / 360);
+	if (!(p->map->dist_array = malloc(sizeof(float) * p->map->res_x)))
+		error_msg("Malloc error", p);
 }

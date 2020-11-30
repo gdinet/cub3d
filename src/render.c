@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:33:00 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 12:14:23 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/11/30 15:30:24 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,25 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 	int		line;
 	int		wall_height;
 	float	hit;
-	int		get;
+	t_dir	dir;
 
 	if (dist->side_hit == 0)
 	{
 		hit = wall_hit(dist, ray, dist->side_x);
 		distance = fish_eye(dist->side_x, angle, map->angle);
 		if (dist->step_x == 1)
-			get = 1; //east
+			dir = east;
 		else
-			get = 2; //west
+			dir = west;
 	}
 	else
 	{
 		hit = wall_hit(dist, ray, dist->side_y);
 		distance = fish_eye(dist->side_y, angle, map->angle);
 		if (dist->step_y == 1)
-			get = 3; //south
+			dir = south;
 		else
-			get = 4; //north
+			dir = north;
 	}
 	map->dist_array[col] = distance;
 	wall_height = (1 / distance) * map->screen_d;
@@ -89,13 +89,13 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 			mlx->img[(mlx->size * line / 4) + col] = map->floor;
 		else
 		{
-			if (get == 1)
+			if (dir == east)
 				color = get_color(&map->east, line, wall_height, map, hit);
-			else if (get == 2)
+			else if (dir == west)
 				color = get_color(&map->west, line, wall_height, map, hit);
-			else if (get == 3)
+			else if (dir == south)
 				color = get_color(&map->south, line, wall_height, map, hit);
-			else if (get == 4)
+			else if (dir == north)
 				color = get_color(&map->north, line, wall_height, map, hit);
 			mlx->img[(mlx->size * line / 4) + col] = color;
 		}
@@ -103,7 +103,7 @@ void			print_wall(t_distance *dist, t_map *map, t_mlx *mlx, int col, float angle
 	}
 }
 
-void		dda(t_vector *ray, t_map *map, t_mlx *mlx, int col)
+void			dda(t_vector *ray, t_map *map, t_mlx *mlx, int col)
 {
 	int			hit;
 	int			x;
@@ -135,7 +135,7 @@ void		dda(t_vector *ray, t_map *map, t_mlx *mlx, int col)
 	print_wall(&dist, map, mlx, col, ray->angle, ray);
 }
 
-int			render(t_map *map, t_mlx *mlx)
+int				render(t_map *map, t_mlx *mlx)
 {
 	float		a;
 	float		delta_a;

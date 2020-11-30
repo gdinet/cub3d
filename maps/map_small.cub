@@ -2,11 +2,11 @@ R   1080 1024
 
 NO ./maps/texture/bluestone.xpm
 
-SO ./maps/texture/colorstone.xpm
+	SO ./maps/texture/colorstone.xpm
 WE ./maps/texture/greystone.xpm
 EA        ./maps/texture/redbrick.xpm
 
-S ./maps/texture/pillar.xpm
+             S ./maps/texture/pillar.xpm
 
 F 124,    142, 12
 
