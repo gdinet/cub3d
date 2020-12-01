@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:51:30 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 12:11:19 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/12/01 17:11:33 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void	bmp_image(int fd, t_map *map, t_mlx *mlx)
 	}
 }
 
-void	bmp_file(t_map *map, t_mlx *mlx)
+void	bmp_file(t_param *p)
 {
 	int		fd;
 
-	render(map, mlx);
+	render(p);
 	fd = open("cub3d.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0755);
-	bmp_header(fd, map, mlx);
-	bmp_image(fd, map, mlx);
+	bmp_header(fd, p->map, p->mlx);
+	bmp_image(fd, p->map, p->mlx);
 	close(fd);
 }

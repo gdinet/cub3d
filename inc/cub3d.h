@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/30 15:30:27 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/12/01 17:28:21 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # include "libft.h"
-# include <stdio.h>			//a supprimer
 
 # define RES_X_MAX 2560
 # define RES_Y_MAX 1440
@@ -30,26 +29,26 @@
 # define KEY_LEFT 65361
 # define KEY_ESC 65307
 
-typedef struct		s_mlx
+/*
+** Calcul
+*/
+typedef struct		s_calc
 {
-	void	*mlx_ptr;
-	void	*win;
-	void	*img_ptr;
-	int		*img;
-	int		bpp;
-	int		size;
-	int		endian;
-}					t_mlx;
-
-typedef struct		s_vector
-{
-	float	pos_x;
-	float	pos_y;
 	float	angle;
 	float	dir_x;
 	float	dir_y;
-}					t_vector;
+	int		step_x;
+	int		step_y;
+	float	delta_x;
+	float	delta_y;
+	float	side_x;
+	float	side_y;
+	int		side_hit;
+}					t_calc;
 
+/*
+** Texture
+*/
 typedef struct		s_texture
 {
 	int		*img;
@@ -59,17 +58,19 @@ typedef struct		s_texture
 	void	*ptr;
 }					t_text;
 
-typedef struct		s_distance
+/*
+** Sprite list
+*/
+typedef struct		s_sprite
 {
-	int		step_x;
-	int		step_y;
-	float	delta_x;
-	float	delta_y;
-	float	side_x;
-	float	side_y;
-	int		side_hit;
-}					t_distance;
+	float	dist;
+	float	pos_x;
+	float	pos_y;
+}					t_sprite;
 
+/*
+** Main datas
+*/
 typedef struct		s_map
 {
 	int		res_x;
@@ -108,19 +109,26 @@ typedef enum		e_dir
 	west,
 }					t_dir;
 
+/*
+** Minilibx pointers
+*/
+typedef struct		s_mlx
+{
+	void	*mlx_ptr;
+	void	*win;
+	void	*img_ptr;
+	int		*img;
+	int		bpp;
+	int		size;
+	int		endian;
+}					t_mlx;
+
 typedef struct		s_param
 {
 	t_map	*map;
 	t_mlx	*mlx;
 	t_key	key;
 }					t_param;
-
-typedef struct		s_sprite
-{
-	float	dist;
-	float	pos_x;
-	float	pos_y;
-}					t_sprite;
 
 t_mlx				init_mlx(void);
 void				init_win(t_param *param);
@@ -132,17 +140,18 @@ void				check_data(t_param *param);
 int					is_map(char *line);
 void				check_map(char **map, t_param *param);
 
-void				bmp_file(t_map *map, t_mlx *mlx);
-int					render(t_map *map, t_mlx *mlx);
-void				mlx_end(t_mlx *mlx);
+int					render(t_param *p);
 void				move_straight(t_key key, t_map *map);
 void				move_side(t_key key, t_map *map);
 void				rotate(t_key key, t_map *map);
-int					get_color(t_text *text, int line, int wall_h, t_map *map, float hit);
-float				wall_hit(t_distance *dist, t_vector *ray, float distance);
+float				horizontal_hit(t_map *map, t_calc *calc);
+float				vertical_hit(t_map *map, int line, int wall_h);
+int					get_color(t_text *text, float i, float j);
+
 void				sort_sprite(float x, float y, t_list *lst_sprite);
-void				print_sprite(t_map *map, t_sprite *sprite, t_mlx *mlx);
-void				sprite(t_map *map, t_mlx *mlx);
+void				sprite(t_param *p);
+
+void				bmp_file(t_param *p);
 
 void				error_msg(char *str, t_param *param);
 int					close_window(t_param *param);

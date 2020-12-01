@@ -6,7 +6,7 @@
 #    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/21 15:11:17 by gdinet            #+#    #+#              #
-#    Updated: 2020/11/26 13:25:15 by gdinet           ###   ########.fr        #
+#    Updated: 2020/12/01 17:20:26 by gdinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC			= src/map_parsing.c \
 			  src/init.c \
 			  src/events.c \
 			  src/texture.c \
+			  src/sort_sprite.c \
 			  src/sprite.c \
 			  src/bitmap.c \
 			  src/end.c \

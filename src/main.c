@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/30 15:19:28 by gdinet           ###   ########.fr       */
+/*   Updated: 2020/12/01 17:28:01 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int		loop_hook(t_param *param)
 	move_straight(param->key, param->map);
 	move_side(param->key, param->map);
 	rotate(param->key, param->map);
-	render(param->map, param->mlx);
-	sprite(param->map, param->mlx);
+	render(param);
+	sprite(param);
 	mlx_put_image_to_window(param->mlx->mlx_ptr, param->mlx->win,
 	param->mlx->img_ptr, 0, 0);
 	return (0);
@@ -103,7 +103,7 @@ int		main(int ac, char **av)
 		parsing(&param, fd);
 		close(fd);
 		if (ac == 3)
-			bmp_file(&map, &mlx);
+			bmp_file(&param);
 		mlx_hook(mlx.win, 2, 1L << 0, &key_press, &param);
 		mlx_hook(mlx.win, 3, 1L << 1, &key_release, &param);
 		mlx_hook(mlx.win, 17, 1L << 17, &close_window, &param);
