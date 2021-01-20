@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2020/12/01 17:28:01 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/01/20 15:06:40 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 int		key_press(int keycode, t_param *param)
 {
-	if (keycode == KEY_Z)
+	if (keycode == KEY_W)
 		param->key |= W;
-	if (keycode == KEY_Q)
+	if (keycode == KEY_A)
 		param->key |= A;
 	if (keycode == KEY_S)
 		param->key |= S;
@@ -37,9 +37,9 @@ int		key_press(int keycode, t_param *param)
 
 int		key_release(int keycode, t_param *param)
 {
-	if (keycode == KEY_Z)
+	if (keycode == KEY_W)
 		param->key &= ~W;
-	if (keycode == KEY_Q)
+	if (keycode == KEY_A)
 		param->key &= ~A;
 	if (keycode == KEY_S)
 		param->key &= ~S;

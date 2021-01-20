@@ -12,7 +12,7 @@
 
 CC			= gcc
 
-CFLAG		= -Wall -Wextra -Werror -I $(INC)
+CFLAG		= -Wall -Wextra -Werror -I $(INC) -g
 
 FT			:= libft
 MLX			:= minilibx-linux
