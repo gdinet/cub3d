@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 14:32:22 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/30 15:18:44 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/07 14:30:53 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ t_mlx		init_mlx(void)
 	t_mlx	mlx;
 
 	mlx.mlx_ptr = mlx_init();
+	mlx.win = NULL;
+	mlx.img_ptr = NULL;
+	mlx.img = NULL;
 	return (mlx);
 }
 
@@ -46,8 +49,10 @@ t_map		init_map(void)
 	map.floor = -1;
 	map.ceil = -1;
 	map.lst_sprite = NULL;
+	map.dist_array = NULL;
 	map.pos_x = -1.0;
 	map.pos_y = -1.0;
 	map.angle = -1.0;
+	map.map = NULL;
 	return (map);
 }
