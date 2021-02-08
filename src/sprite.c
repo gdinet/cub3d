@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 16:32:30 by gdinet            #+#    #+#             */
-/*   Updated: 2020/12/01 17:31:44 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/08 13:54:59 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int		sprite_color(t_text *sprite, float i, float j, float size)
 	int		coord_y;
 	int		color;
 
+	i = (i < 0) ? 0 : i;
+	j = (j < 0) ? 0 : j;
 	coord_x = i / size * sprite->width;
 	coord_y = j / size * sprite->height;
 	color = sprite->img[(sprite->size * coord_y / 4) + coord_x];
