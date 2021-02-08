@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:33:00 by gdinet            #+#    #+#             */
-/*   Updated: 2020/12/01 17:17:48 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:04:01 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void		print_col(t_param *p, t_dir dir, int col, float h_hit)
 	{
 		v_hit = vertical_hit(p->map, line, wall_h);
 		if (line > p->map->res_y / 2 + wall_h / 2)
-			color = p->map->ceil;
-		else if (line < p->map->res_y / 2 - wall_h / 2)
 			color = p->map->floor;
+		else if (line < p->map->res_y / 2 - wall_h / 2)
+			color = p->map->ceil;
 		else if (dir == east)
 			color = get_color(&p->map->east, h_hit, v_hit);
 		else if (dir == west)

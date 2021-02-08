@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2021/02/08 13:31:01 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:03:02 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		check_arg(int ac, char **av)
 		ft_putendl_fd("Please give a map (file.cub) as first argument", 1);
 		return (1);
 	}
-	else if (ac == 3 && !ft_strncmp(av[2], "--save", 7))
+	else if (ac == 3 && ft_strncmp(av[2], "--save", 7))
 	{
 		ft_putendl_fd("The second argument must be --save or nothing", 1);
 		return (1);
