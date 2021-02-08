@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2021/02/07 14:23:25 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/08 16:09:36 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "libft.h"
 
-# define RES_X_MAX 2560
-# define RES_Y_MAX 1440
+# define RES_X_MAX 1920
+# define RES_Y_MAX 1080
 # define FOV 60
 
 # define KEY_W 119
