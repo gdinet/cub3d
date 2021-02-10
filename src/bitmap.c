@@ -6,11 +6,12 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:51:30 by gdinet            #+#    #+#             */
-/*   Updated: 2020/12/01 17:11:33 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/10 13:12:21 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "mlx.h"
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -67,9 +68,15 @@ void	bmp_file(t_param *p)
 {
 	int		fd;
 
+	p->mlx->img_ptr = mlx_new_image(p->mlx->mlx_ptr, p->map->res_x,
+	p->map->res_y);
+	p->mlx->img = (int *)mlx_get_data_addr(p->mlx->img_ptr,
+	&p->mlx->bpp, &p->mlx->size, &p->mlx->endian);
 	render(p);
+	sprite(p);
 	fd = open("cub3d.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	bmp_header(fd, p->map, p->mlx);
 	bmp_image(fd, p->map, p->mlx);
 	close(fd);
+	close_window(p);
 }

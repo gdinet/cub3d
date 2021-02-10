@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 08:15:47 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/30 15:23:10 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/10 13:06:33 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	parse_res(t_param *param, char *line)
 		param->map->res_x = RES_X_MAX;
 	if (param->map->res_y > RES_Y_MAX)
 		param->map->res_y = RES_Y_MAX;
-	init_win(param);
 }
 
 void	parse_texture(t_text *text, char *line, t_param *p)

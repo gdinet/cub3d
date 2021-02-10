@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2021/02/08 16:03:02 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/10 13:04:48 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int		main(int ac, char **av)
 		close(fd);
 		if (ac == 3)
 			bmp_file(&param);
+		init_win(&param);
 		mlx_hook(mlx.win, 2, 1L << 0, &key_press, &param);
 		mlx_hook(mlx.win, 3, 1L << 1, &key_release, &param);
 		mlx_hook(mlx.win, 17, 1L << 17, &close_window, &param);
