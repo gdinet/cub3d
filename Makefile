@@ -6,18 +6,18 @@
 #    By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/21 15:11:17 by gdinet            #+#    #+#              #
-#    Updated: 2020/12/01 17:20:26 by gdinet           ###   ########.fr        #
+#    Updated: 2021/02/11 00:52:39 by gdinet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= gcc
 
-CFLAG		= -Wall -Wextra -Werror -I $(INC) -g
+CFLAG		= -Wall -Wextra -Werror $(INC)
 
 FT			:= libft
 MLX			:= minilibx-linux
 
-INC			= ./inc
+INC			= -I./inc -I./$(MLX)
 
 SRC			= src/map_parsing.c \
 			  src/parsing.c \
@@ -43,12 +43,10 @@ libft:
 
 minilibx:
 			make -C $(MLX)
-			cp $(MLX)/libmlx.a ./
-			cp $(MLX)/mlx.h $(INC)
 
 $(NAME):	$(OBJ)
 			make -C $(FT)
-			$(CC) $(CFLAG) -o $@ $(OBJ) -L./libft -lft -l mlx -lX11 -lXext -lbsd -lm
+			$(CC) $(CFLAG) -o $@ $(OBJ) -L./$(FT) -lft -lmlx -lX11 -lXext -lbsd -lm
 
 .c.o:
 			$(CC) $(CFLAG) -c $< -o $(<:.c=.o)
@@ -60,8 +58,6 @@ clean:
 
 fclean:		clean
 			make -C $(FT) $@
-			rm -f libmlx.a
-			rm -f $(INC)/mlx.h
 			rm -f $(NAME)
 
 re:			fclean all

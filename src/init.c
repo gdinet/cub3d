@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 14:32:22 by gdinet            #+#    #+#             */
-/*   Updated: 2021/02/07 14:30:53 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/11 00:45:45 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,10 @@ t_map		init_map(void)
 	map.angle = -1.0;
 	map.map = NULL;
 	return (map);
+}
+
+void		init_cub3d(t_map *map, t_mlx *mlx)
+{
+	*map = init_map();
+	*mlx = init_mlx();
 }

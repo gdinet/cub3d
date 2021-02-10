@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:33:42 by gdinet            #+#    #+#             */
-/*   Updated: 2021/02/08 16:09:36 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/11 00:46:17 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ typedef struct		s_param
 	t_key	key;
 }					t_param;
 
+void				init_cub3d(t_map *map, t_mlx *mlx);
 t_mlx				init_mlx(void);
 void				init_win(t_param *param);
 t_map				init_map(void);

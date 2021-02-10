@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:25:19 by gdinet            #+#    #+#             */
-/*   Updated: 2021/02/10 13:04:48 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/11 00:44:30 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ int		main(int ac, char **av)
 
 	if (!check_arg(ac, av))
 	{
-		map = init_map();
-		mlx = init_mlx();
+		init_cub3d(&map, &mlx);
 		param.map = &map;
 		param.mlx = &mlx;
 		param.key = 0;
