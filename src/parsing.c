@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 08:15:47 by gdinet            #+#    #+#             */
-/*   Updated: 2021/02/10 13:06:33 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/11 01:25:28 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	parse_res(t_param *param, char *line)
 	while (*line >= '0' && *line <= '9')
 		line++;
 	param->map->res_y = ft_atoi(line);
+	while ((*line >= '0' && *line <= '9') || *line == ' ')
+		line++;
+	if (*line != '\0')
+		error_msg("Unexpected character", param);
 	if (param->map->res_x <= 0 || param->map->res_y <= 0)
 		error_msg("Resolution can't be negative", param);
 	if (param->map->res_x > RES_X_MAX)
@@ -77,6 +81,10 @@ void	parse_color(int *color, char *line, t_param *param)
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		error_msg("Color must be in range [0:255]", param);
 	*color = (r << 16) + (g << 8) + b;
+	while ((*line >= '0' && *line <= '9') || *line == ' ')
+		line++;
+	if (*line != '\0')
+		error_msg("Unexpected character", param);
 }
 
 void	parse_data(t_param *param, char *line)
@@ -114,18 +122,18 @@ void	parsing(t_param *p, int fd)
 		if (*line)
 		{
 			if (!in_map && is_map(line))
-			{
-				check_data(p);
 				in_map = 1;
-			}
 			if (in_map)
 				parse_map(p, line);
 			else
 				parse_data(p, line);
 		}
+		else if (in_map)
+			error_msg("Map : empty line", p);
 		free(line);
 	}
 	parse_map(p, NULL);
+	check_data(p);
 	check_map(p->map->map, p);
 	p->map->screen_d = (p->map->res_x / 2) / tan((float)FOV * M_PI / 360);
 	if (!(p->map->dist_array = malloc(sizeof(float) * p->map->res_x)))

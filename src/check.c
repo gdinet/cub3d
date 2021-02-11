@@ -6,7 +6,7 @@
 /*   By: gdinet <gdinet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 11:12:26 by gdinet            #+#    #+#             */
-/*   Updated: 2020/11/26 15:46:09 by gdinet           ###   ########.fr       */
+/*   Updated: 2021/02/11 01:26:09 by gdinet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,21 @@ void	check_data(t_param *param)
 int		is_map(char *line)
 {
 	int		i;
+	int		empty;
 
 	i = 0;
+	empty = 0;
 	while (line[i])
 	{
+		if (!empty && line[i] != ' ')
+			empty = 1;
 		if (line[i] == ' ' || (line[i] >= '0' && line[i] <= '9') ||
 		line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
 			i++;
 		else
 			return (0);
 	}
-	return (1);
+	return (empty);
 }
 
 int		is_open(char **map, int i, int j)
